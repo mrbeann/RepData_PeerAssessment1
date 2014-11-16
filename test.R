@@ -1,0 +1,11 @@
+library(dplyr)
+tb <- tbl_df(read.csv("activity.csv"))
+step_group <- group_by(tb, date)
+step_sum <- summarize(step_group, sum(steps,na.rm=T))
+barplot(step_sum$sum, names.arg = step_sum$date, xlab = "date", ylab = "steps")
+mean(step_sum$sum)
+median(step_sum$sum)
+
+step_groupi <- group_by(tb, interval)
+step_int <- summarize(step_groupi, mean(interval,na.rm=T))
+plot(step_int$interval,type = "l")
